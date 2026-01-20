@@ -1,0 +1,35 @@
+name: Hello World Personalizzato
+run-name: ${{ github.actor }} sta testando GitHub Actions 🚀
+on: [push]
+
+jobs:
+  hello-world:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: 📊 Stampa informazioni repository
+        run: |
+          echo "📦 Repository: ${{ github.repository }}"
+          echo "🔑 SHA Commit: ${{ github.sha }}"
+          echo "🔗 URL Repository: ${{ github.repositoryUrl }}"
+          echo "👤 Utente: ${{ github.actor }}"
+          echo "📝 Messaggio commit: ${{ github.event.head_commit.message }}"
+          echo "✍️ Autore commit: ${{ github.event.head_commit.author.name }}"
+          echo "⚙️ Workflow: ${{ github.workflow }}"
+          echo "🆔 Run ID: ${{ github.run_id }}"
+      
+      - name: 📅 Stampa data e ora esecuzione
+        run: |
+          echo "📅 Data e ora locale: $(date)"
+          echo "🕐 Data e ora UTC: $(date -u)"
+          echo "⏰ Timestamp: $(date +%s)"
+      
+      - name: 📂 Lista file modificati nell'ultimo commit
+        run: |
+          echo "📂 File modificati nell'ultimo commit:"
+          git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
+          echo ""
+          echo "📊 Statistiche commit:"
+          git show --stat ${{ github.sha }}
